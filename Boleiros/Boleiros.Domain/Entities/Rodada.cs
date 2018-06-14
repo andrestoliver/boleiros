@@ -5,17 +5,13 @@ using System.Text;
 
 namespace Boleiros.Domain.Entities
 {
-    public class TimeLiga : IEntity
+    public class Rodada : IEntity
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
+        public int Numero { get; set; }
         public string Descricao { get; set; }
         public bool Ativo { get; set; }
-
-        public int IdUsuario { get; set; }
-        public virtual Usuario Usuario { get; set; }
-
-        public int IdLiga { get; set; }
-        public virtual TimeLiga Time { get; set; }
+        public virtual Campeonato Campeonato { get; set; }
+        public virtual IList<Jogo> Jogos { get; set; }
     }
 }
