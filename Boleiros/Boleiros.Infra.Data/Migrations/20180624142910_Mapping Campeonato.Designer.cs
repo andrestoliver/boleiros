@@ -4,14 +4,16 @@ using Boleiros.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Boleiros.Infra.Data.Migrations
 {
     [DbContext(typeof(BoleirosContext))]
-    partial class BoleirosContextModelSnapshot : ModelSnapshot
+    [Migration("20180624142910_Mapping Campeonato")]
+    partial class MappingCampeonato
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,72 +51,65 @@ namespace Boleiros.Infra.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID_CAMPENATO")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnName("IN_ATIVO");
+                    b.Property<bool>("Ativo");
 
-                    b.Property<string>("Descricao")
-                        .HasColumnName("DE_CAMPENATO");
+                    b.Property<string>("Descricao");
 
-                    b.Property<string>("Nome")
-                        .HasColumnName("NM_CAMPENATO");
+                    b.Property<string>("Nome");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TB_CAMPEONATO");
+                    b.ToTable("Campeonatos");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.Jogo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID_JOGO")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnName("IN_ATIVO");
+                    b.Property<bool>("Ativo");
 
-                    b.Property<int?>("ID_MANDANTE");
+                    b.Property<int>("IdMandante");
 
-                    b.Property<int?>("ID_RODADA");
+                    b.Property<int>("IdRodada");
 
-                    b.Property<int?>("ID_VISITANTE");
+                    b.Property<int>("IdVisitante");
+
+                    b.Property<int>("NumeroGolMandante");
+
+                    b.Property<int>("NumeroGolVisitante");
+
+                    b.Property<int?>("RodadaId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ID_MANDANTE");
+                    b.HasIndex("RodadaId");
 
-                    b.HasIndex("ID_RODADA");
-
-                    b.HasIndex("ID_VISITANTE");
-
-                    b.ToTable("TB_JOGO");
+                    b.ToTable("Jogos");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.Palpite", b =>
                 {
-                    b.Property<int>("IdJogo")
-                        .HasColumnName("ID_JOGO");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdUsuario")
-                        .HasColumnName("ID_USUARIO");
+                    b.Property<bool>("Ativo");
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnName("IN_ATIVO");
+                    b.Property<int?>("JogoId");
 
-                    b.Property<int>("NumeroGolMandante")
-                        .HasColumnName("NU_GOL_MANDANTE");
+                    b.Property<int?>("UsuarioId");
 
-                    b.Property<int>("NumeroGolVisitante")
-                        .HasColumnName("NU_GOL_VISITANTE");
+                    b.HasKey("Id");
 
-                    b.HasKey("IdJogo", "IdUsuario");
+                    b.HasIndex("JogoId");
 
-                    b.HasIndex("IdUsuario");
+                    b.HasIndex("UsuarioId");
 
-                    b.ToTable("TB_PALPITE");
+                    b.ToTable("Palpites");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.PerfilUsuario", b =>
@@ -123,174 +118,140 @@ namespace Boleiros.Infra.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ID_TIPO_PERFIL");
+                    b.Property<int?>("BolaoId");
 
-                    b.Property<int>("IdBolao")
-                        .HasColumnName("ID_BOLAO");
+                    b.Property<int?>("TipoPerfilId");
 
-                    b.Property<int>("IdUsuario")
-                        .HasColumnName("ID_USUARIO");
+                    b.Property<int?>("UsuarioId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ID_TIPO_PERFIL");
+                    b.HasIndex("BolaoId");
 
-                    b.HasIndex("IdBolao");
+                    b.HasIndex("TipoPerfilId");
 
-                    b.HasIndex("IdUsuario");
+                    b.HasIndex("UsuarioId");
 
-                    b.ToTable("TB_PERFIL_USUARIO");
+                    b.ToTable("PerfisUsuario");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.Rodada", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID_RODADA")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnName("IN_ATIVO");
+                    b.Property<bool>("Ativo");
 
-                    b.Property<string>("Descricao")
-                        .HasColumnName("DE_RODADA");
+                    b.Property<int?>("CampeonatoId");
 
-                    b.Property<int?>("ID_CAMPEONATO");
+                    b.Property<string>("Descricao");
 
-                    b.Property<int>("Numero")
-                        .HasColumnName("NU_RODADA");
+                    b.Property<int>("Numero");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ID_CAMPEONATO");
+                    b.HasIndex("CampeonatoId");
 
-                    b.ToTable("TB_RODADA");
+                    b.ToTable("Rodadas");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.Time", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID_TIME")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnName("IN_ATIVO");
+                    b.Property<bool>("Ativo");
 
-                    b.Property<string>("Descricao")
-                        .HasColumnName("DE_TIME");
+                    b.Property<string>("Descricao");
 
-                    b.Property<string>("Nome")
-                        .HasColumnName("NM_TIME");
+                    b.Property<string>("Nome");
 
-                    b.Property<string>("Sigla")
-                        .HasColumnName("NM_SIGLA");
+                    b.Property<string>("Sigla");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TB_TIME");
+                    b.ToTable("Times");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.TipoPerfil", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID_TIPO_PERFIL")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnName("IN_ATIVO");
+                    b.Property<bool>("Ativo");
 
-                    b.Property<string>("Descricao")
-                        .HasColumnName("DE_TIPO_PERFIL");
+                    b.Property<string>("Descricao");
 
-                    b.Property<string>("Nome")
-                        .HasColumnName("NM_TIPO_PERFIL");
+                    b.Property<string>("Nome");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TB_TIPO_PERFIL");
+                    b.ToTable("TiposPerfil");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID_USUARIO")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Ativo");
 
-                    b.Property<string>("Nome")
-                        .HasColumnName("NM_USUARIO");
+                    b.Property<string>("Nome");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TB_USUARIO");
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.Bolao", b =>
                 {
                     b.HasOne("Boleiros.Domain.Entities.Campeonato", "Campeonato")
                         .WithMany("Boloes")
-                        .HasForeignKey("ID_CAMPEONATO")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ID_CAMPEONATO");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.Jogo", b =>
                 {
-                    b.HasOne("Boleiros.Domain.Entities.Time", "Mandante")
-                        .WithMany("JogosMandante")
-                        .HasForeignKey("ID_MANDANTE")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("Boleiros.Domain.Entities.Rodada", "Rodada")
                         .WithMany("Jogos")
-                        .HasForeignKey("ID_RODADA")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Boleiros.Domain.Entities.Time", "Visitante")
-                        .WithMany("JogosVisitante")
-                        .HasForeignKey("ID_VISITANTE")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("RodadaId");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.Palpite", b =>
                 {
                     b.HasOne("Boleiros.Domain.Entities.Jogo", "Jogo")
-                        .WithMany("Palpites")
-                        .HasForeignKey("IdJogo")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany()
+                        .HasForeignKey("JogoId");
 
                     b.HasOne("Boleiros.Domain.Entities.Usuario", "Usuario")
-                        .WithMany("Palpites")
-                        .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany()
+                        .HasForeignKey("UsuarioId");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.PerfilUsuario", b =>
                 {
-                    b.HasOne("Boleiros.Domain.Entities.TipoPerfil", "TipoPerfil")
-                        .WithMany("PerfilUsuarios")
-                        .HasForeignKey("ID_TIPO_PERFIL")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("Boleiros.Domain.Entities.Bolao", "Bolao")
                         .WithMany("PerfisUsuario")
-                        .HasForeignKey("IdBolao")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("BolaoId");
+
+                    b.HasOne("Boleiros.Domain.Entities.TipoPerfil")
+                        .WithMany("PerfilUsuarios")
+                        .HasForeignKey("TipoPerfilId");
 
                     b.HasOne("Boleiros.Domain.Entities.Usuario", "Usuario")
                         .WithMany("PerfisUsuario")
-                        .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("UsuarioId");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.Rodada", b =>
                 {
                     b.HasOne("Boleiros.Domain.Entities.Campeonato", "Campeonato")
                         .WithMany("Rodadas")
-                        .HasForeignKey("ID_CAMPEONATO");
+                        .HasForeignKey("CampeonatoId");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,5 +11,6 @@ namespace Boleiros.Domain.Entities
         public string Nome { get; set; }
         public bool Ativo { get; set; }
         public virtual IList<PerfilUsuario> PerfisUsuario { get; set; }
+        public virtual IList<Palpite> Palpites{ get; set; }
     }
 }

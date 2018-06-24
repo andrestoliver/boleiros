@@ -4,14 +4,16 @@ using Boleiros.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Boleiros.Infra.Data.Migrations
 {
     [DbContext(typeof(BoleirosContext))]
-    partial class BoleirosContextModelSnapshot : ModelSnapshot
+    [Migration("20180624180730_Mapping Muitos")]
+    partial class MappingMuitos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,8 +103,7 @@ namespace Boleiros.Infra.Data.Migrations
                     b.Property<int>("IdUsuario")
                         .HasColumnName("ID_USUARIO");
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnName("IN_ATIVO");
+                    b.Property<bool>("Ativo");
 
                     b.Property<int>("NumeroGolMandante")
                         .HasColumnName("NU_GOL_MANDANTE");
@@ -171,24 +172,19 @@ namespace Boleiros.Infra.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID_TIME")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnName("IN_ATIVO");
+                    b.Property<bool>("Ativo");
 
-                    b.Property<string>("Descricao")
-                        .HasColumnName("DE_TIME");
+                    b.Property<string>("Descricao");
 
-                    b.Property<string>("Nome")
-                        .HasColumnName("NM_TIME");
+                    b.Property<string>("Nome");
 
-                    b.Property<string>("Sigla")
-                        .HasColumnName("NM_SIGLA");
+                    b.Property<string>("Sigla");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TB_TIME");
+                    b.ToTable("Times");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.TipoPerfil", b =>
@@ -241,8 +237,7 @@ namespace Boleiros.Infra.Data.Migrations
                 {
                     b.HasOne("Boleiros.Domain.Entities.Time", "Mandante")
                         .WithMany("JogosMandante")
-                        .HasForeignKey("ID_MANDANTE")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ID_MANDANTE");
 
                     b.HasOne("Boleiros.Domain.Entities.Rodada", "Rodada")
                         .WithMany("Jogos")
@@ -251,8 +246,7 @@ namespace Boleiros.Infra.Data.Migrations
 
                     b.HasOne("Boleiros.Domain.Entities.Time", "Visitante")
                         .WithMany("JogosVisitante")
-                        .HasForeignKey("ID_VISITANTE")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ID_VISITANTE");
                 });
 
             modelBuilder.Entity("Boleiros.Domain.Entities.Palpite", b =>

@@ -29,7 +29,15 @@ namespace Boleiros.Infra.Data.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.ApplyConfiguration(new BolaoConfig());
+            modelBuilder.ApplyConfiguration(new BolaoConfig());
+            modelBuilder.ApplyConfiguration(new CampeonatoConfig());
+            modelBuilder.ApplyConfiguration(new RodadaConfig());
+            modelBuilder.ApplyConfiguration(new JogoConfig());
+            modelBuilder.ApplyConfiguration(new PalpiteConfig());
+            modelBuilder.ApplyConfiguration(new UsuarioConfig());
+            modelBuilder.ApplyConfiguration(new PerfilUsuarioConfig());
+            modelBuilder.ApplyConfiguration(new TipoPerfilConfig());
+            modelBuilder.ApplyConfiguration(new TimeConfig());
         }
         #endregion
 

@@ -7,11 +7,29 @@ using System.Text;
 
 namespace Boleiros.Infra.Data.EntityConfig
 {
-    public class CampeonatoConfig : IEntityTypeConfiguration<Bolao>
+    public class CampeonatoConfig : IEntityTypeConfiguration<Campeonato>
     {
-        public void Configure(EntityTypeBuilder<Bolao> builder)
+        public void Configure(EntityTypeBuilder<Campeonato> builder)
         {
-            throw new NotImplementedException();
+            #region Constraints
+            builder.ToTable("TB_CAMPEONATO");
+            builder.HasKey(p => p.Id);
+
+            builder.HasMany(p => p.Boloes)
+                   .WithOne(p => p.Campeonato)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(p => p.Boloes)
+                   .WithOne(p => p.Campeonato)
+                   .OnDelete(DeleteBehavior.Restrict);
+            #endregion
+
+            #region Properties
+            builder.Property(p => p.Id).HasColumnName("ID_CAMPENATO");
+            builder.Property(p => p.Nome).HasColumnName("NM_CAMPENATO");
+            builder.Property(p => p.Descricao).HasColumnName("DE_CAMPENATO");
+            builder.Property(p => p.Ativo).HasColumnName("IN_ATIVO");
+            #endregion
         }
     }
 }

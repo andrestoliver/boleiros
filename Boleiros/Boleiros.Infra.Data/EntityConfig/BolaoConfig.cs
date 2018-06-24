@@ -17,16 +17,18 @@ namespace Boleiros.Infra.Data.EntityConfig
 
             builder.HasOne(p => p.Campeonato)
                    .WithMany(p => p.Boloes)
-                   .OnDelete(DeleteBehavior.Restrict);
+                   .HasForeignKey("ID_CAMPEONATO");
 
             builder.HasMany(p => p.PerfisUsuario)
-                   .WithOne(p => p.Bolao)
-                   .HasForeignKey("ID_BOLAO");
+                   .WithOne(p => p.Bolao);
             #endregion
 
             #region Propertys
             builder.Property(p => p.Id).HasColumnName("ID_BOLAO");
-            builder.Property(p => p.Nome).HasColumnName("ID_BOLAO");
+            builder.Property(p => p.Nome).HasColumnName("NM_BOLAO");
+            builder.Property(p => p.Descricao).HasColumnName("DE_BOLAO");
+            builder.Property(p => p.Ativo).HasColumnName("IN_ATIVO");
+            builder.Property("ID_CAMPEONATO").HasColumnName("ID_CAMPEONATO");
             #endregion
         }
     }

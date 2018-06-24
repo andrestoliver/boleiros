@@ -12,5 +12,7 @@ namespace Boleiros.Domain.Entities
         public string Sigla { get; set; }
         public string Descricao { get; set; }
         public bool Ativo { get; set; }
+        public virtual IList<Jogo> JogosMandante { get; set; }
+        public virtual IList<Jogo> JogosVisitante { get; set; }
     }
 }
